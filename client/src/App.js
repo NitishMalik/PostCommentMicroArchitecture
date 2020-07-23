@@ -1,7 +1,15 @@
 import React from 'react';
+import PostCreate from './Components/PostCreate';
+import PostsList from './Components/PostsList';
 
-export default App = () => {
+export default App => {
     return (
-        <h1>My blog app</h1>
+        <div className="container">
+            <h1>Create Post</h1>
+            <PostCreate />
+            <hr />
+
+            <PostsList />
+        </div>
     )
 }
