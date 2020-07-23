@@ -4,17 +4,18 @@ import axios from 'axios';
 export default ({ postId }) => {
     const [comments, setComments] = useState([])
 
-    const fetchComments = async () => {
-        if (postId) {
-            const resp = await axios(`http://localhost:4001/posts/${postId}/comments`);
-            console.log(resp);
-            if (resp.data) {
-                setComments(resp.data)
-            }
-        }
-    }
+
 
     useEffect(() => {
+        const fetchComments = async () => {
+            if (postId) {
+                const resp = await axios(`http://localhost:4001/posts/${postId}/comments`);
+                console.log(resp);
+                if (resp.data) {
+                    setComments(resp.data)
+                }
+            }
+        }
         fetchComments();
     }, [postId]);
 
