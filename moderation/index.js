@@ -7,6 +7,12 @@ app.use(bodyParser.json());
 
 app.post('/events', async (req, res) => {
     const { type, data } = req.body;
+
+    handleEvent(type, data);
+    res.send({});
+});
+
+const handleEvent = async (type, data) => {
     if (type === "CommentCreated") {
         const { id, postId, content } = data;
         const modStatus = data.content.includes('sex') ? 'rejected' : 'approved';
@@ -22,10 +28,14 @@ app.post('/events', async (req, res) => {
             }
         })
     }
+};
 
-    res.send({});
-});
-
-app.listen(4003, () => {
+app.listen(4003, async () => {
     console.log("Moderation service running at 4003");
+
+    const res = await axios.get("http://localhost:4005/events");
+    for (let event of res.data) {
+        console.log("Processing data...");
+        handleEvent(event.type, event.data);
+    }
 })

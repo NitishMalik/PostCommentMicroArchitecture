@@ -1,0 +1,19 @@
+appVersion: apps/v1 ---> pods have direct version
+kind: --> Deployment [type of object]
+metadata:
+  name: posts-depl
+spec: --> [spec of deployment object]
+  replicas: 1 --> [how many nodes to create]
+  selector:  ---> [what pods to select]
+    matchLabels:
+      app: posts [can be any key value pair]
+  template:  --> [template of a pod]
+    metadata:
+      labels:  ---> [add a label to every pod , so that selector can pick it]
+        app: posts
+    spec:    --> [spec of a pod]
+      containers:
+        - name: posts  --> [- is an indicator for array, a pod can have array of containers]
+          image: nitish/posts:0.0.1 --> [if we donot mention the version, latest is assumed by default and docker 
+          server goes to docker hub to find it]
+
